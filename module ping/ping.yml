@@ -1,0 +1,8 @@
+---
+- name: ping module demo
+  hosts: all
+  become: false
+
+  tasks:
+    - name: test connection
+      ping:
