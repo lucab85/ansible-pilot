@@ -1,0 +1,17 @@
+---
+- name: check if the directory exists
+  hosts: all
+  become: false
+  vars:
+    directory: "/tmp"
+
+  tasks:
+    - name: Check if the directory exists
+      ansible.builtin.stat:
+        path: "{{ directory }}"
+      register: dir_to_check
+
+    - name: Directory found
+      ansible.builtin.debug:
+        msg: "Directory {{ directory }} present"
+      when: dir_to_check.stat.exists and dir_to_check.stat.isdir
