@@ -14,4 +14,4 @@
     - name: Directory found
       ansible.builtin.debug:
         msg: "Directory {{ directory }} present"
-      when: dir_to_check.stat.exists and dir_to_check.stat.isdir
+      when: dir_to_check.stat.isdir is defined and dir_to_check.stat.isdir
