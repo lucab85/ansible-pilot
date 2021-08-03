@@ -1,0 +1,12 @@
+---
+- name: blockinfile module demo
+  hosts: all
+  become: true
+  tasks:
+
+- name: Generate /etc/hosts file
+  ansible.builtin.blockinfile:
+    state: present
+    dest: /etc/hosts
+    content: |
+      192.168.0.200 demo demo.example.com
