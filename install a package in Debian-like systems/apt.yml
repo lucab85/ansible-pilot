@@ -1,0 +1,9 @@
+---
+- name: module apt demo
+  hosts: all
+  become: true
+  tasks:
+    - name: install package
+      apt:
+        name: curl
+        state: present

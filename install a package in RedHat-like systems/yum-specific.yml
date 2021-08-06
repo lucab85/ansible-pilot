@@ -1,0 +1,10 @@
+---
+- name: yum module demo
+  hosts: all
+  become: true
+  tasks:
+    - name: install package
+      yum:
+        name: wget-1.19.5-7.el8
+        state: present
+        allow_downgrade: true
