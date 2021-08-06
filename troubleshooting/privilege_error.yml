@@ -1,0 +1,9 @@
+---
+- name: yum module demo
+  hosts: all
+  become: false
+  tasks:
+    - name: install package
+      yum:
+        name: git
+        state: present
