@@ -1,0 +1,14 @@
+---
+- name: git module demo
+  hosts: all
+  become: true
+  tasks:
+    - name: ensure git pkg installed
+      ansible.builtin.yum:
+        name: git
+        state: present
+
+    - name: checkout git repo
+      ansible.builtin.git:
+        repo: https://github.com/lucab85/ansible-pilot.git
+        dest: /home/devops/ansible-pilot
