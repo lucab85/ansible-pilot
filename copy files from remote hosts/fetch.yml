@@ -1,0 +1,12 @@
+---
+- name: fetch module demo
+  hosts: all
+  become: true
+  vars:
+    log_file: "/var/log/messages"
+    dump_dir: "logs"
+  tasks:
+    - name: fetch log
+      ansible.builtin.fetch:
+        src: "{{ log_file }}"
+        dest: "{{ dump_dir }}"

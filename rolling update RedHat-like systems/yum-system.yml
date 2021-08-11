@@ -1,0 +1,10 @@
+---
+- name: rolling update demo
+  hosts: all
+  become: true
+  tasks:
+    - name: ensure system updated
+      yum:
+        name: "*"
+        state: latest
+        update_cache: true
