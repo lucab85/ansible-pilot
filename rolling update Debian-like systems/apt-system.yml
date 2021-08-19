@@ -1,0 +1,10 @@
+---
+- name: rolling update demo
+  hosts: all
+  become: true
+  tasks:
+    - name: ensure system updated
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+        update_cache: true

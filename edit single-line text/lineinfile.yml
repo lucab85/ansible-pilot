@@ -1,0 +1,12 @@
+---
+- name: lineinfile module demo
+  hosts: all
+  become: true
+  tasks:
+    - name: allow password authentication
+      ansible.builtin.lineinfile:
+        state: present
+        dest: /etc/ssh/sshd_config
+        regexp: "^PasswordAuthentication"
+        line: "PasswordAuthentication yes"
+        validate: 'sshd -t -f %s'
