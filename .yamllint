@@ -8,3 +8,6 @@ rules:
 
 ignore: |
   .github/stale.yml
+  extract\ archive/unarchive.yml
+  troubleshooting/failuredownloading_fix.yml
+  troubleshooting/failuredownloading_error.yml

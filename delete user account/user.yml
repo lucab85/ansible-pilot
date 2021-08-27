@@ -1,0 +1,10 @@
+---
+- name: user module demo
+  hosts: all
+  become: true
+  tasks:
+    - name: user example not present
+      ansible.builtin.user:
+        name: example
+        state: "absent"
+        remove: true
