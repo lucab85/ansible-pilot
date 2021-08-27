@@ -1,0 +1,10 @@
+---
+- name: service module demo
+  hosts: all
+  become: true
+  tasks:
+    - name: sshd restart
+      ansible.builtin.service:
+        name: sshd
+        state: restarted
+        enabled: true
