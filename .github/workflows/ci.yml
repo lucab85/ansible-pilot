@@ -30,7 +30,7 @@ jobs:
 
       - name: YAML linter.
         run: |
-          yamllint .
+          yamllint --config-file ansible-pilot/.yamllint .
 
       - name: ANSIBLE linter.
         run: |
