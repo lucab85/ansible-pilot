@@ -1,0 +1,27 @@
+---
+- name: ufw module demo
+  hosts: all
+  become: true
+  tasks:
+
+    - name: nginx installed
+      ansible.builtin.apt:
+        name: "nginx"
+        state: "present"
+        update_cache: true
+
+    - name: ufw enabled
+      community.general.ufw:
+        state: "enabled"
+        policy: "deny"
+        logging: "on"
+
+    - name: ufw rules
+      community.general.ufw:
+        rule: "allow"
+        port: "{{ item }}"
+        proto: "tcp"
+      with_items:
+        - "22"
+        - "80"
+        - "443"
