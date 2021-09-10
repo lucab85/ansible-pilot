@@ -5,7 +5,7 @@
     mypath: "/home/devops/deleteme"
   become: false
   tasks:
-    - name: "{{ mypath }}" not present
+    - name: "{{ mypath }} not present"
       ansible.builtin.file:
         path: "{{ mypath }}"
         state: "absent"

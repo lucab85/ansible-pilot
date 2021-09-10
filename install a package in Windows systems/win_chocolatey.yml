@@ -5,8 +5,8 @@
   gather_facts: false
   vars:
     - packages:
-      - git
-      - notepadplusplus
+        - git
+        - notepadplusplus
   tasks:
     - name: install packages
       chocolatey.chocolatey.win_chocolatey:
