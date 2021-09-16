@@ -1,12 +1,12 @@
 ---
 - name: git module demo
   hosts: all
-  become: true
   tasks:
     - name: ensure git pkg installed
       ansible.builtin.yum:
         name: git
         state: present
+      become: true
 
     - name: checkout git repo
       ansible.builtin.git:

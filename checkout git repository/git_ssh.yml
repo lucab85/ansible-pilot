@@ -1,0 +1,20 @@
+---
+- name: git module demo
+  hosts: all
+  vars:
+    repo: "git@github.com:lucab85/ansible-pilot.git"
+    dest: "/home/devops/ansible-pilot"
+    sshkey: "~/.ssh/id_rsa"
+  tasks:
+    - name: ensure git pkg installed
+      ansible.builtin.yum:
+        name: git
+        state: present
+        update_cache: true
+      become: true
+
+    - name: checkout git repo
+      ansible.builtin.git:
+        repo: "{{ repo }}"
+        dest: "{{ dest }}"
+        key_file: "{{ sshkey }}"
