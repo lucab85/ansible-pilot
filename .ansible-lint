@@ -1,2 +1,4 @@
 exclude_paths:
+ - ./.ansible-lint
  - ./github
+ - ./troubleshooting/syntax_error.yml
