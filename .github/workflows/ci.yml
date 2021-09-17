@@ -17,8 +17,6 @@ jobs:
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
-        with:
-          path: 'ansible-pilot'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
@@ -30,7 +28,7 @@ jobs:
 
       - name: YAML linter.
         run: |
-          yamllint --config-file ansible-pilot/.yamllint .
+          yamllint --config-file .yamllint .
 
       - name: ANSIBLE linter.
         run: |
