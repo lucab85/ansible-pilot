@@ -1,0 +1,10 @@
+---
+- name: file module demo
+  hosts: all
+  vars:
+    myfile: "~/example.txt"
+  task:
+    - name: Creating an empty
+      ansible.builtin.file:
+        path: "{{ myfile }}"
+        state: touch

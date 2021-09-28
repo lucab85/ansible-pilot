@@ -1,0 +1,7 @@
+---
+- name: win_reboot module demo
+  hosts: all
+  become: true
+  tasks:
+    - name: reboot host(s)
+      ansible.windows.win_reboot:

@@ -1,0 +1,28 @@
+---
+- name: rename file or directory
+  hosts: all
+  vars:
+    mysrc: "~/foo"
+    mydst: "~/bar"
+  tasks:
+    - name: Check if file exists
+      ansible.builtin.stat:
+        path: "{{ mysrc }}"
+      register: check_file_name
+
+    - name: print debug
+      ansible.builtin.debug:
+        var: check_file_name
+
+    - name: Copy file with new name
+      ansible.builtin.copy:
+        remote_src: true
+        src: "{{ mysrc }}"
+        dest: "{{ mydst }}"
+      when: check_file_name.stat.exists
+
+    - name: Remove old file
+      ansible.builtin.file:
+        path: "{{ mysrc }}"
+        state: absent
+      when: check_file_name.stat.exists
