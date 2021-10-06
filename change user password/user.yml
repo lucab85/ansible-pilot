@@ -1,0 +1,13 @@
+---
+- name: user module demo
+  hosts: all
+  become: true
+  vars:
+    myuser: "example"
+    mypassword: "password"
+  tasks:
+    - name: change password
+      ansible.builtin.user:
+        name: "{{ myuser }}"
+        state: present
+        password: "{{ mypassword | password_hash('sha512') }}"
