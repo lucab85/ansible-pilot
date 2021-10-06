@@ -1,4 +1,4 @@
---- 
+---
 - name: win_reboot module demo
   hosts: all
   become: false
