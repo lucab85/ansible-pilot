@@ -1,0 +1,10 @@
+---
+- name: zypper module demo
+  hosts: all
+  become: true
+  tasks:
+    - name: install package
+      community.general.zypper:
+        name: wget-1.14-12.1
+        state: present
+        oldpackage: true

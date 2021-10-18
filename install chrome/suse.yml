@@ -1,0 +1,25 @@
+---
+- name: install Google Chrome
+  hosts: all
+  become: true
+  tasks:
+    - name: Add rpm signing key
+      ansible.builtin.rpm_key:
+        key: https://dl.google.com/linux/linux_signing_key.pub
+        state: present
+
+    - name: Add repository into repo list
+      community.general.zypper_repository:
+        name: google-chrome
+        description: google-chrome repository
+        repo: http://dl.google.com/linux/chrome/rpm/stable/x86_64
+        auto_import_keys: true
+        state: present
+        runrefresh: true
+        enable: true
+
+    - name: Install google-chrome-stable
+      community.general.zypper:
+        name: "google-chrome-stable"
+        state: latest
+        update_cache: true

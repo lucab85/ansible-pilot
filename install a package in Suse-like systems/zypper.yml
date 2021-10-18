@@ -1,0 +1,9 @@
+---
+- name: zypper module demo
+  hosts: all
+  become: true
+  tasks:
+    - name: install package
+      community.general.zypper:
+        name: dos2unix
+        state: present
