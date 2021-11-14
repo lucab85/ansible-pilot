@@ -1,0 +1,27 @@
+---
+- name: install Microsoft Edge
+  hosts: all
+  become: true
+  tasks:
+    - name: Install apt-transport-https
+      ansible.builtin.apt:
+        name: apt-transport-https
+        state: latest
+        update_cache: true
+
+    - name: Add apt signing key
+      ansible.builtin.apt_key:
+        url: "https://packages.microsoft.com/keys/microsoft.asc"
+        state: present
+
+    - name: Add repository into sources list
+      ansible.builtin.apt_repository:
+        repo: deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main
+        state: present
+        filename: microsoft-edge
+
+    - name: Install microsoft-edge-stable
+      ansible.builtin.apt:
+        name: "microsoft-edge-stable"
+        state: latest
+        update_cache: true

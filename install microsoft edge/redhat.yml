@@ -1,0 +1,24 @@
+---
+- name: install Microsoft Edge
+  hosts: all
+  become: true
+  tasks:
+    - name: Add Yum signing key
+      ansible.builtin.rpm_key:
+        key: "https://packages.microsoft.com/keys/microsoft.asc"
+        state: present
+
+    - name: Add repository into repo.d list
+      ansible.builtin.yum_repository:
+        name: microsoft-edge
+        description: microsoft-edge
+        baseurl: "https://packages.microsoft.com/yumrepos/edge/"
+        enabled: true
+        gpgcheck: true
+        gpgkey: "https://packages.microsoft.com/keys/microsoft.asc"
+
+    - name: Install microsoft-edge-stable
+      ansible.builtin.yum:
+        name: "microsoft-edge-stable"
+        state: latest
+        update_cache: true
