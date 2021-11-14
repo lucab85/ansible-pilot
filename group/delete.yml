@@ -1,0 +1,11 @@
+---
+- name: group module demo
+  hosts: all
+  become: true
+  vars:
+    mygroup: "example"
+  tasks:
+    - name: delete group
+      ansible.builtin.group:
+        name: "{{ mygroup }}"
+        state: absent
