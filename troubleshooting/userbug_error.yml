@@ -1,0 +1,12 @@
+---
+- name: user module demo
+  hosts: all
+  become: true
+  vars:
+    myuser: "example"
+  tasks:
+    - name: password expiration
+      ansible.builtin.user:
+        name: "{{ myuser }}"
+        password_expire_min: 7
+        password_expire_max: 90

@@ -1,0 +1,31 @@
+---
+- name: mount module demo
+  hosts: all
+  become: true
+  vars:
+    uri: "//windows-pc/share"
+    username: "example@domain"
+    password: "password"
+    mountpoint: "/share"
+  tasks:
+    - name: utility present
+      ansible.builtin.package:
+        name: cifs-utils
+        state: present
+
+    - name: check mountpoint exist
+      ansible.builtin.file:
+        path: "{{ mountpoint }}"
+        state: directory
+        mode: '0755'
+        owner: root
+        group: root
+
+    - name: mount network share
+      ansible.posix.mount:
+        src: "{{ uri }}"
+        path: "{{ mountpoint }}"
+        fstype: cifs
+        opts: 'username={{ username }},password={{ password }}'
+        state: mounted
+
