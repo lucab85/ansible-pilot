@@ -5,6 +5,7 @@
   tasks:
     - name: Install apt-transport-https
       ansible.builtin.apt:
+        name: apt-transport-https
         state: latest
         update_cache: true
 
