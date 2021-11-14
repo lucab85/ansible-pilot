@@ -1,0 +1,10 @@
+---
+- name: install Google Chrome
+  hosts: all
+  become: false
+  gather_facts: false
+  tasks:
+    - name: install packages
+      chocolatey.chocolatey.win_chocolatey:
+        name: "googlechrome"
+        state: present
