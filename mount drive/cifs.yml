@@ -28,4 +28,3 @@
         fstype: cifs
         opts: 'username={{ username }},password={{ password }}'
         state: mounted
-
