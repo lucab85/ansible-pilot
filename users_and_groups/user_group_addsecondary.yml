@@ -12,4 +12,4 @@
       user:
         name: "{{ myuser }}"
         groups: "{{ mygroups }}"
-        append: yes
+        append: true
