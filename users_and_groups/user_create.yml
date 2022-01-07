@@ -9,7 +9,6 @@
         password: "{{ 'password' | password_hash('sha512', 'mysecretsalt') }}"
         groups:
           - wheel
-          - adm
         state: "present"
         shell: "/bin/bash"
         system: false
