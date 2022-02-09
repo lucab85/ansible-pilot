@@ -1,0 +1,17 @@
+---
+- name: install windows wsl
+  hosts: all
+  become: false
+  gather_facts: false
+  tasks:
+  - name: install windows wsl
+    ansible.windows.win_dsc:
+      resource_name: WindowsOptionalFeature
+      Name: Microsoft-Windows-Subsystem-Linux
+      Ensure: Enable
+
+  - name: install windows wsl
+    ansible.windows.win_dsc:
+      resource_name: WindowsOptionalFeature
+      Name: VirtualMachinePlatform
+      Ensure: Enable
