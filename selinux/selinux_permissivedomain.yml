@@ -1,0 +1,14 @@
+---
+- name: selinux_permissive module demo
+  hosts: all
+  become: true
+  tasks:
+    - name: semanage present
+      ansible.builtin.package:
+        name: "policycoreutils-python-utils"
+        state: present
+
+    - name: Change the httpd_t domain to permissive
+      community.general.selinux_permissive:
+        name: httpd_t
+        permissive: true

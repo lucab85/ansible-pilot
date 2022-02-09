@@ -1,0 +1,26 @@
+---
+- name: selinux module demo
+  hosts: all
+  become: true
+  vars:
+    selinux_state: "enforcing"
+    selinux_policy: "targeted"
+  tasks:
+    - name: SELinux policy and state
+      ansible.posix.selinux:
+        state: "{{ selinux_state }}"
+        policy: "{{ selinux_policy }}"
+      notify: relabel and reboot
+
+  handlers:
+    - name: relabel files on next boot
+      ansible.builtin.file:
+        path: "/.autorelabel"
+        state: touch
+      when:
+        - selinux_state != 'disabled'
+      listen: "relabel and reboot"
+
+    - name: reboot host
+      ansible.builtin.reboot:
+      listen: "relabel and reboot"

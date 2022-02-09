@@ -1,0 +1,9 @@
+---
+- name: semanage install
+  hosts: all
+  become: true
+  tasks:
+    - name: semanage present
+      ansible.builtin.package:
+        name: "policycoreutils-python-utils"
+        state: present
