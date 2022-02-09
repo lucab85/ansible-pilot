@@ -1,0 +1,41 @@
+---
+- name: mount module demo
+  hosts: all
+  become: true
+  vars:
+    mynfs: "192.168.0.200:/nfs/share"
+    mountpoint: "/share"
+    permission: '0777'
+    myopts: 'rw,sync'
+  tasks:
+    - name: utility present redhat-like
+      ansible.builtin.yum:
+        name:
+          - nfs-utils
+          - nfs4-acl-tools
+        state: present
+      when: ansible_os_family == 'RedHat'
+
+    - name: utility present debian-like
+      ansible.builtin.apt:
+        name:
+          - nfs-common
+          - nfs4-acl-tools
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: check mountpoint exist
+      ansible.builtin.file:
+        path: "{{ mountpoint }}"
+        state: directory
+        mode: "{{ permission }}"
+        owner: root
+        group: root
+
+    - name: mount network share
+      ansible.posix.mount:
+        src: "{{ mynfs }}"
+        path: "{{ mountpoint }}"
+        fstype: nfs
+        opts: "{{ myopts }}"
+        state: mounted

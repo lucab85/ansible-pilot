@@ -1,0 +1,13 @@
+---
+- name: copy module demo
+  hosts: all
+  become: false
+  tasks:
+    - name: copy multiple file(s)
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "/home/devops/"
+        owner: devops
+        mode: '0644'
+      with_fileglob:
+        - "examples/*.txt"

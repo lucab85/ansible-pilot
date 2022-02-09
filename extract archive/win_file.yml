@@ -1,0 +1,12 @@
+---
+- name: win_unzip module demo
+  hosts: all
+  become: false
+  vars:
+    mysrc: 'C:\Users\vagrant\Desktop\example.zip'
+    mydest: 'C:\Users\vagrant\Desktop\output'
+  tasks:
+    - name: extract archive
+      community.windows.win_unzip:
+        src: "{{ mysrc }}"
+        dest: "{{ mydest }}"

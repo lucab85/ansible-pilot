@@ -1,0 +1,12 @@
+---
+- name: win_file module demo
+  hosts: all
+  become: false
+  gather_facts: false
+  vars:
+    myfile: 'C:\Users\vagrant\Desktop\example.txt'
+  tasks:
+    - name: Creating an empty file
+      ansible.windows.win_file:
+        path: "{{ myfile }}"
+        state: touch

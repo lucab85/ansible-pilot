@@ -1,0 +1,14 @@
+---
+- name: subscription-manager module demo
+  hosts: all
+  become: true
+  vars:
+    subscription_username: "username"
+    subscription_password: "password"
+  tasks:
+    - name: register with subscription-manager
+      community.general.redhat_subscription:
+        state: present
+        username: "{{ subscription_username }}"
+        password: "{{ subscription_password }}"
+        auto_attach: true
