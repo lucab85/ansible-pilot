@@ -2,3 +2,5 @@ exclude_paths:
  - ./.ansible-lint
  - ./github
  - ./troubleshooting/syntax_error.yml
+ - ./install Docker/debian.yml
+ - ./install Docker/redhat.yml
