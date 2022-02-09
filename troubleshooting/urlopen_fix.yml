@@ -1,0 +1,19 @@
+---
+- name: uri module demo
+  hosts: all
+  become: false
+  vars:
+    server: "https://reqres.in"
+    endpoint: "/api/users?page=2"
+  tasks:
+    - name: list users
+      ansible.builtin.uri:
+        url: "{{ server }}{{ endpoint }}"
+        method: GET
+        status_code: 200
+        timeout: 30
+      register: result
+
+    - name: debug
+      ansible.builtin.debug:
+        var: result.json.data

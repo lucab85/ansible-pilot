@@ -1,0 +1,18 @@
+---
+- name: service module demo
+  hosts: all
+  become: true
+  vars:
+    enable_services:
+      - "chronyd.service"
+  tasks:
+    - name: populate service facts
+      ansible.builtin.service_facts:
+
+    - name: enable services
+      ansible.builtin.service:
+        name: "{{ item }}"
+        enabled: true
+        state: started
+      when: "item in services"
+      with_items: '{{ enable_services }}'

@@ -1,0 +1,24 @@
+---
+- name: uri module demo
+  hosts: all
+  become: false
+  vars:
+    server: "https://reqres.in"
+    endpoint: "/api/login"
+  tasks:
+    - name: login
+      ansible.builtin.uri:
+        url: "{{ server }}{{ endpoint }}"
+        method: POST
+        body_format: json
+        body: '{
+          "email": "eve.holt@reqres.in",
+          "password": "cityslicka"
+        }'
+        status_code: 200
+        timeout: 30
+      register: result
+
+    - name: token
+      ansible.builtin.debug:
+        var: result.json.token

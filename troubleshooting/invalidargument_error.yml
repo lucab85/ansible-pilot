@@ -1,0 +1,12 @@
+---
+- name: file module demo
+  hosts: all
+  vars:
+    mylink: "~/example"
+    mysrc: "/proc/cpuinfo"
+  tasks:
+    - name: Creating a symlink
+      ansible.builtin.file:
+        path: "{{ mylink }}"
+        dest: "{{ mysrc }}"
+        state: link

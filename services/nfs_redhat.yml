@@ -1,0 +1,51 @@
+---
+- name: nfs service demo
+  hosts: all
+  become: true
+  vars:
+    share: "/nfs/share"
+    options: "192.168.0.0/24(rw,sync,root_squash)"
+    permission: '0777'
+  tasks:
+    - name: NFS server installed
+      ansible.builtin.yum:
+        name:
+          - nfs-utils
+          - nfs4-acl-tools
+        state: present
+
+    - name: share directory exists
+      ansible.builtin.file:
+        path: "{{ share }}"
+        state: directory
+        mode: "{{ permission }}"
+        owner: root
+        group: root
+
+    - name: share in /etc/exports file
+      ansible.builtin.lineinfile:
+        path: /etc/exports
+        state: present
+        line: '{{ share }} {{ options }}'
+      notify: restart NFS server
+
+    - name: export share
+      ansible.builtin.command: "exportfs -rav"
+
+    - name: firewall enabled
+      ansible.posix.firewalld:
+        service: "{{ item }}"
+        state: enabled
+        permanent: true
+        immediate: true
+      with_items:
+        - nfs
+        - rpc-bind
+        - mountd
+
+  handlers:
+    - name: restart NFS server
+      ansible.builtin.service:
+        name: nfs-server
+        state: restarted
+        enabled: true

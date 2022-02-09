@@ -1,0 +1,18 @@
+---
+- name: service module demo
+  hosts: all
+  become: true
+  vars:
+    disable_services:
+      - "chronyd.service"
+  tasks:
+    - name: populate service facts
+      ansible.builtin.service_facts:
+
+    - name: disable services
+      ansible.builtin.service:
+        name: "{{ item }}"
+        enabled: false
+        state: stopped
+      when: "item in services"
+      with_items: '{{ disable_services }}'
