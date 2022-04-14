@@ -1,0 +1,36 @@
+---
+- name: k8s cpu demo
+  hosts: localhost
+  gather_facts: false
+  connection: local
+  vars:
+    myproject: "cpu-example"
+  tasks:
+    - name: create {{ myproject }} namespace
+      kubernetes.core.k8s:
+        kind: Namespace
+        name: "{{ myproject }}"
+        state: present
+        api_version: v1
+
+    - name: create k8s pod
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Pod
+          metadata:
+            name: cpu-demo
+            namespace: "{{ myproject }}"
+          spec:
+            containers:
+              - name: cpu-demo-ctr
+                image: vish/stress
+                resources:
+                  limits:
+                    cpu: "1"
+                  requests:
+                    cpu: "0.5"
+                args:
+                  - -cpus
+                  - "2"
